@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Adldap\Laravel\Traits\HasLdapUser;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

@@ -36,4 +36,12 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+    /**
+     * username required for AD Auth
+     */
+    public function username()
+    {
+      return 'username';
+    }
 }
