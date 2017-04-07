@@ -18,3 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/survey/{id}', 'SurveyController@show');
+Route::post('/survey/submit', 'SurveyController@submit');
