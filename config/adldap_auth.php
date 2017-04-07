@@ -147,7 +147,7 @@ return [
         |
         */
 
-        'eloquent' => 'username',
+        'eloquent' => 'email',
 
     ],
 

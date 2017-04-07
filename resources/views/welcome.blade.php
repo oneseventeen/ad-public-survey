@@ -1,21 +1,17 @@
- <!DOCTYPE html>
- <html lang="en">
+@extends('layouts.app')
 
-<head>
-     <meta charset="UTF-8">
-     <title>Survey</title>
-     <meta name="description" content="DESCRIPTION">
-    <link rel="stylesheet" href="PATH">
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Dashboard</div>
 
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-     <!--[if lt IE 9]>
-       <script src = "http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-     <![endif]-->
- </head>
-
- <body>
-  Coming soon
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
- </body>
-
- </html>
+                <div class="panel-body">
+                    Surveys!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
