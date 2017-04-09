@@ -19,6 +19,61 @@ class SurveyController extends Controller
       return view('survey.form', ['survey'=> Survey::findOrFail($id)]);
     }
 
+    /**
+     * Save a new survey
+     * @param  Request $request Form request data
+     * @return redirect to add question form
+     */
+    public function create(Request $request)
+    {
+
+      $this->validate($request, [
+          'name' => 'required|max:255'
+      ]);
+
+      $survey = new Survey();
+      $survey->name = $request->input('name');
+      if($request->has('description')) {
+        $survey->description = $request->input('description');
+      }
+      $survey->save();
+      return redirect('/addquestion/' . $survey->id . '#new-question-form');
+    }
+
+    /**
+     * Save a new question for a survey
+     * @param  Request $request submitted question form
+     * @param  Survey  $survey  Survey to add the question to
+     * @return view
+     */
+    public function addquestion(Request $request, Survey $survey)
+    {
+      $validation_array = array('label'=>'required|max:255');
+      if($request->has('type') && $request->input('type') == 'select') {
+        $validation_array['options'] = 'required';
+      }
+      $this->validate($request, $validation_array);
+      $data = array();
+      $data['label'] = $request->input('label');
+      $data['question_type'] = $request->input('type');
+      if($request->has('options')) {
+        $data['options'] = $request->input('options');
+      }
+      if($request->has('required')) {
+        $data['required'] = '1';
+      }
+      // return($data);
+      $survey->questions()->create($data);
+      return redirect('/addquestion/' . $survey->id . '#new-question-form');
+    }
+
+    /**
+     * Post a response to a survey.
+     *
+     * @param  Request $request Form request data
+     * @param  int  $id      survey to post a response to
+     * @return redirect      redirects to success page or form w/errors
+     */
     public function submit(Request $request, $id)
     {
       if($id != $request->input('survey_id')) {
@@ -39,13 +94,13 @@ class SurveyController extends Controller
           $errorcount++;
         }
         if($request->has('q-' . $question->id) && strlen(trim($request->input('q-' . $question->id))) > 0) {
-          echo("trying to add answer");
+          // echo("trying to add answer");
           $answerArray[$question->id] = array(
             'value'=> $request->input('q-' . $question->id),
             'question_id'=>$question->id
           );
         } else {
-          echo("could not find q-" . $question->id );
+          // echo("could not find q-" . $question->id );
         }
       }
 
@@ -58,11 +113,19 @@ class SurveyController extends Controller
           $sr->answers()->create($ans);
         }
       } else {
-        echo("boo " . $errorcount);
+        // echo("boo " . $errorcount);
       }
-      echo("<pre>\n");
-      var_dump($request->all());
-      die("</pre>\n");
+      // echo("<pre>\n");
+      // var_dump($request->all());
+      // die("</pre>\n");
 
+
+        if($request->has('return_url')
+            && strlen($request->input('return_url'))>5) {
+           return redirect()->away($request->input('return_url'));
+           //->header('Location', $request->input('return_url'));
+        } else {
+          return redirect('thanks');
+        }
     }
 }

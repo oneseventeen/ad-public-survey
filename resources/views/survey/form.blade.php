@@ -24,7 +24,7 @@
     <div class='col-md-6 col-md-offset-3'>
       <form role="form" method="POST" action="/survey/submit/{{$survey->id}}">
         <input type='hidden' name='survey_id' value="{{$survey->id}}" />
-        <input type='hidden' name='return_url' value="{{$survey->return_url or 'http://easterabq.org'}}" />
+        <input type='hidden' name='disabled-return_url' value="{{$survey->return_url or 'http://easterabq.org'}}" />
           @foreach($survey->questions as $q)
           <div class='form-group'>
             <label for="q[{{$q->id}}]" class="control-label">{{$q->label}}</label>
@@ -36,7 +36,15 @@
                   @endforeach
                 </select>
               @else
-                <input type="text" name="q-{{$q->id}}" class="form-control">
+
+                @if($q->required)
+                <div class='input-group'>
+                  <input type="text" name="q-{{$q->id}}" class="form-control">
+                    <span class="input-group-addon">Required</span>
+                  </div>
+                @else
+                  <input type="text" name="q-{{$q->id}}" class="form-control">
+                @endif
               @endif
 
               @if(strlen($q->description)>2)
