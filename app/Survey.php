@@ -19,4 +19,12 @@ class Survey extends Model
     {
       return $this->hasMany('App\Question');
     }
+
+    /**
+     * Get the responses associated with this survey
+     */
+    public function responses()
+    {
+      return $this->hasMany('App\SurveyResponse');
+    }
 }

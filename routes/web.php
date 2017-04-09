@@ -20,4 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::get('/survey/{id}', 'SurveyController@show');
-Route::post('/survey/submit', 'SurveyController@submit');
+Route::post('/survey/submit/{id}', 'SurveyController@submit');
+
+Route::get('/response/export/{survey}', 'ResponseController@export');
+Route::get('/response/{survey}', 'ResponseController@show');

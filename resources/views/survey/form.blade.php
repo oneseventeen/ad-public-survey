@@ -22,19 +22,21 @@
   </div>
   <div class='container'>
     <div class='col-md-6 col-md-offset-3'>
-      <form role="form" method="POST" action="/survey/submit">
+      <form role="form" method="POST" action="/survey/submit/{{$survey->id}}">
+        <input type='hidden' name='survey_id' value="{{$survey->id}}" />
+        <input type='hidden' name='return_url' value="{{$survey->return_url or 'http://easterabq.org'}}" />
           @foreach($survey->questions as $q)
           <div class='form-group'>
             <label for="q[{{$q->id}}]" class="control-label">{{$q->label}}</label>
               @if($q->question_type == 'select')
-                <select name='q[{{$q->id}}]' class='form-control input-lg'>
+                <select name='q-{{$q->id}}' class='form-control input-lg'>
                   <option value="-">Please Choose</option>
                   @foreach(explode('|', $q->options) as $option)
                   <option value='{{$option}}'>{{$option}}</option>
                   @endforeach
                 </select>
               @else
-                <input type="text" name="q[{{$q->id}}]" class="form-control">
+                <input type="text" name="q-{{$q->id}}" class="form-control">
               @endif
 
               @if(strlen($q->description)>2)
