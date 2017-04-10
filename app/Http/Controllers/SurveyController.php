@@ -96,12 +96,21 @@ class SurveyController extends Controller
             && !$request->has('q-' . $question->id) ) {
           $errorcount++;
         }
-        if($request->has('q-' . $question->id) && strlen(trim($request->input('q-' . $question->id))) > 0) {
+        if($request->has('q-' . $question->id)) {
           // echo("trying to add answer");
-          $answerArray[$question->id] = array(
-            'value'=> $request->input('q-' . $question->id),
-            'question_id'=>$question->id
-          );
+          if(is_array($request->input('q-' . $question->id)) && count($request->input('q-' . $question->id))) {
+            $answerArray[$question->id] = array(
+              'value' => implode('|', $request->input('q-' . $question->id)),
+              'question_id' => $question->id
+            );
+          } elseif ( strlen(trim($request->input('q-' . $question->id))) > 0) {
+
+            $answerArray[$question->id] = array(
+              'value'=> $request->input('q-' . $question->id),
+              'question_id'=>$question->id
+            );
+
+          } // I guess there is an empty string
         } else {
           // echo("could not find q-" . $question->id );
         }

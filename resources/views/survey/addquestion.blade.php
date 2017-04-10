@@ -30,7 +30,7 @@
                     @if($q->required)
                     [Required]
                     @endif
-                  @if($q->question_type == 'select')
+                  @if($q->question_type == 'select' || $q->question_type == 'checkbox-list')
                     <ul>
                       @foreach(explode('|', $q->options) as $o)
                         <li>{{$o}}</li>

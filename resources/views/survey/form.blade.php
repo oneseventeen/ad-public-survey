@@ -35,7 +35,11 @@
         @endif
           @foreach($survey->questions as $q)
           <div class='form-group'>
-            <label for="q[{{$q->id}}]" class="control-label">{{$q->label}}</label>
+            <label for="q[{{$q->id}}]" class="control-label">{{$q->label}}
+              @if($q->required)
+              <span class='text-danger'>* Required</span>
+              @endif
+            </label>
               @if($q->question_type == 'select')
                 @if($q->required)
                 <div class='input-group'>
@@ -55,6 +59,15 @@
                   @endforeach
                 </select>
                 @endif
+              @elseif($q->question_type == 'checkbox-list')
+                @foreach(explode('|', $q->options) as $option)
+                <div class='checkbox'>
+                  <label>
+                    <input type='checkbox' name='q-{{$q->id}}[]'
+                      value='{{$option}}'>{{$option}}
+                  </label>
+                </div>
+                @endforeach
               @elseif($q->question_type == 'textarea')
 
                 @if($q->required)

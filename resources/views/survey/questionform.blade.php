@@ -14,10 +14,11 @@
                     <option {{ (old("type") == "text" ? "selected":"") }}>text</option>
                     <option {{ (old("type") == "textarea" ? "selected":"") }}>textarea</option>
                     <option {{ (old("type") == "select" ? "selected":"") }}>select</option>
+                    <option {{ (old("type") == "checkbox-list" ? "selected":"") }}>checkbox-list</option>
                   </select>
                 </div>
                 <div class="form-group" id="option-area">
-                    <label for="options">Options for select-type</label>
+                    <label for="options">Options for select type and checkbox-list type</label>
                     <textarea class='form-control' name='options' id='options' rows='2'>{{old('options')}}</textarea>
                     <span id="helpBlock" class="help-block">Please enter as
                       many options as you'd like if you are making a select type
@@ -33,7 +34,9 @@
 
             <script>
               window.onload =function() {
-                if($('#type option:selected').text() == "select") {
+                var optionfields = ["select", "checkbox-list"];
+
+                if(optionfields.includes($('#type option:selected').text())) {
                   $('#option-area').show();
                 } else {
                   $('#option-area').hide();
@@ -41,12 +44,14 @@
                 }
 
                $('#type').change(function() {
-                 if($('#type option:selected').text() == "select") {
+                 if(optionfields.includes($('#type option:selected').text())) {
                    $('#option-area').show();
                  } else {
                    $('#option-area').hide();
                    $('#options').val("");
                  }
                });
+
+               $('#label').focus();
               }
             </script>
