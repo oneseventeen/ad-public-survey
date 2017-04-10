@@ -12,6 +12,7 @@
                   <label for="type">Type</label>
                   <select name="type" class='form-control' id="type">
                     <option {{ (old("type") == "text" ? "selected":"") }}>text</option>
+                    <option {{ (old("type") == "textarea" ? "selected":"") }}>textarea</option>
                     <option {{ (old("type") == "select" ? "selected":"") }}>select</option>
                   </select>
                 </div>

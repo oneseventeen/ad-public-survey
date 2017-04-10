@@ -11,6 +11,12 @@
      <!--[if lt IE 9]>
        <script src = "http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
      <![endif]-->
+     <style>
+       .input-group-btn:not(:first-child):not(:last-child) > .btn {
+          border-radius: 0;
+          height: 100%;
+        }
+     </style>
  </head>
 
  <body>
@@ -31,12 +37,35 @@
           <div class='form-group'>
             <label for="q[{{$q->id}}]" class="control-label">{{$q->label}}</label>
               @if($q->question_type == 'select')
+                @if($q->required)
+                <div class='input-group'>
+                  <select name='q-{{$q->id}}' class='form-control input-lg'>
+                    <option value="-">Please Choose</option>
+                    @foreach(explode('|', $q->options) as $option)
+                    <option value='{{$option}}'>{{$option}}</option>
+                    @endforeach
+                  </select>
+                  <span class="input-group-addon">Required</span>
+                </div>
+                @else
                 <select name='q-{{$q->id}}' class='form-control input-lg'>
                   <option value="-">Please Choose</option>
                   @foreach(explode('|', $q->options) as $option)
                   <option value='{{$option}}'>{{$option}}</option>
                   @endforeach
                 </select>
+                @endif
+              @elseif($q->question_type == 'textarea')
+
+                @if($q->required)
+                <div class='input-group'>
+                  <textarea name="q-{{$q->id}}" class="form-control" rows='4'></textarea>
+                    <span class="input-group-addon">Required</span>
+                  </div>
+                @else
+                  <textarea name="q-{{$q->id}}" class="form-control" rows='4'></textarea>
+                @endif
+
               @else
 
                 @if($q->required)
