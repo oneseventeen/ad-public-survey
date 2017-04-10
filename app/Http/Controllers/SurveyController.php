@@ -36,6 +36,9 @@ class SurveyController extends Controller
       if($request->has('description')) {
         $survey->description = $request->input('description');
       }
+      if($request->has('return_url')) {
+        $survey->return_url = $request->input('return_url');
+      }
       $survey->save();
       return redirect('/addquestion/' . $survey->id . '#new-question-form');
     }

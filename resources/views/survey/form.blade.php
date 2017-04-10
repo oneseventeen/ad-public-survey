@@ -24,7 +24,9 @@
     <div class='col-md-6 col-md-offset-3'>
       <form role="form" method="POST" action="/survey/submit/{{$survey->id}}">
         <input type='hidden' name='survey_id' value="{{$survey->id}}" />
-        <input type='hidden' name='disabled-return_url' value="{{$survey->return_url or 'http://easterabq.org'}}" />
+        @if($survey->return_url)
+          <input type='hidden' name='return_url' value="{{$survey->return_url}}" />
+        @endif
           @foreach($survey->questions as $q)
           <div class='form-group'>
             <label for="q[{{$q->id}}]" class="control-label">{{$q->label}}</label>

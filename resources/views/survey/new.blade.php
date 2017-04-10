@@ -28,6 +28,21 @@
                 <span class="input-group-addon">Optional</span>
               </div>
             </div>
+
+            <div class="form-group">
+              <label for="return_url">Return URL</label>
+              <div class="required-field-block">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="return_url" id="return_url" placeholder="http://google.com">
+                  <span class="input-group-addon">Optional</span>
+                </div>
+                <span id="helpBlock" class="help-block">URL (including http://
+                  or https://) to redirect users to after they complete the
+                  survey.  If left blank, they will get a white page with the
+                  words Thank You.
+                </span>
+              </div>
+            </div>
 <!-- this is where the question form was -->
           <div class="form-group">
             <button type="submit" class="btn btn-primary">Submit and add questions</button> <a href='/list' class='btn'>Cancel</a>
