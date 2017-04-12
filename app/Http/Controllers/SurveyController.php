@@ -86,15 +86,22 @@ class SurveyController extends Controller
            ->header('Location', $request->input('return_url'));
         }
       }
+
       $survey = \App\Survey::find($id);
       $errorcount = 0;
       $answerArray = array();
+      $validationArray = array();
 
       //loop through questions and check for answers
       foreach($survey->questions as $question) {
-        if($question->required
-            && !$request->has('q-' . $question->id) ) {
-          $errorcount++;
+        // if($question->required
+        //     && !$request->has('q-' . $question->id) ) {
+        //   $errorcount++;
+        // }
+        if($question->required)
+        {
+          $validationArray['q-' . $question->id] =  'required';
+          $messageArray['q-' . $question->id . '.required'] = $question->label . ' is required';
         }
         if($request->has('q-' . $question->id)) {
           // echo("trying to add answer");
@@ -111,10 +118,12 @@ class SurveyController extends Controller
             );
 
           } // I guess there is an empty string
-        } else {
-          // echo("could not find q-" . $question->id );
         }
       }
+
+
+
+      $this->validate($request, $validationArray, $messageArray);
 
       //if no errors, submit form!
       if($errorcount == 0 && count($answerArray) > 0) {

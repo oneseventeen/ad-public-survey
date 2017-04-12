@@ -11,6 +11,13 @@
      <!--[if lt IE 9]>
        <script src = "http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
      <![endif]-->
+
+     <!--
+     <?php var_dump($errors);
+     echo("old input\n\n");
+var_dump(Session::getOldInput());
+     ?>
+     -->
      <style>
        .input-group-btn:not(:first-child):not(:last-child) > .btn {
           border-radius: 0;
@@ -28,68 +35,22 @@
   </div>
   <div class='container'>
     <div class='col-md-6 col-md-offset-3'>
+
+      @include('layouts.errors')
       <form role="form" method="POST" action="/survey/submit/{{$survey->id}}">
         <input type='hidden' name='survey_id' value="{{$survey->id}}" />
         @if($survey->return_url)
           <input type='hidden' name='return_url' value="{{$survey->return_url}}" />
         @endif
           @foreach($survey->questions as $q)
-          <div class='form-group'>
+
+          <div class='form-group{{ $errors->has('q-' . $q->id) ? ' has-error' : '' }}'>
             <label for="q[{{$q->id}}]" class="control-label">{{$q->label}}
               @if($q->required)
               <span class='text-danger'>* Required</span>
               @endif
             </label>
-              @if($q->question_type == 'select')
-                @if($q->required)
-                <div class='input-group'>
-                  <select name='q-{{$q->id}}' class='form-control input-lg'>
-                    <option value="-">Please Choose</option>
-                    @foreach(explode('|', $q->options) as $option)
-                    <option value='{{$option}}'>{{$option}}</option>
-                    @endforeach
-                  </select>
-                  <span class="input-group-addon">Required</span>
-                </div>
-                @else
-                <select name='q-{{$q->id}}' class='form-control input-lg'>
-                  <option value="-">Please Choose</option>
-                  @foreach(explode('|', $q->options) as $option)
-                  <option value='{{$option}}'>{{$option}}</option>
-                  @endforeach
-                </select>
-                @endif
-              @elseif($q->question_type == 'checkbox-list')
-                @foreach(explode('|', $q->options) as $option)
-                <div class='checkbox'>
-                  <label>
-                    <input type='checkbox' name='q-{{$q->id}}[]'
-                      value='{{$option}}'>{{$option}}
-                  </label>
-                </div>
-                @endforeach
-              @elseif($q->question_type == 'textarea')
-
-                @if($q->required)
-                <div class='input-group'>
-                  <textarea name="q-{{$q->id}}" class="form-control" rows='4'></textarea>
-                    <span class="input-group-addon">Required</span>
-                  </div>
-                @else
-                  <textarea name="q-{{$q->id}}" class="form-control" rows='4'></textarea>
-                @endif
-
-              @else
-
-                @if($q->required)
-                <div class='input-group'>
-                  <input type="text" name="q-{{$q->id}}" class="form-control">
-                    <span class="input-group-addon">Required</span>
-                  </div>
-                @else
-                  <input type="text" name="q-{{$q->id}}" class="form-control">
-                @endif
-              @endif
+              @include('survey.field.' . $q->question_type)
 
               @if(strlen($q->description)>2)
               <span class="help-block">{{$q->description}}</span>
