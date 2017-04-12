@@ -59,10 +59,11 @@ var_dump(Session::getOldInput());
               @endif
           </div>
           @endforeach
-
-          <button type="submit" class="btn btn-primary">
-              Submit
-          </button>
+          <div class='form-group'>
+            <button type="submit" class="btn btn-primary">
+                Submit
+            </button>
+          </div>
       </form>
     </div>
   </div>
