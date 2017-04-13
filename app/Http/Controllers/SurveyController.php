@@ -39,6 +39,9 @@ class SurveyController extends Controller
       if($request->has('return_url')) {
         $survey->return_url = $request->input('return_url');
       }
+      if($request->has('css')) {
+        $survey->css = $request->input('css');
+      }
       $survey->save();
       return redirect('/addquestion/' . $survey->id . '#new-question-form');
     }

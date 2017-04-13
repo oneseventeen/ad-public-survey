@@ -25,6 +25,7 @@ var_dump(Session::getOldInput());
           border-radius: 0;
           height: 100%;
         }
+        {!! $survey->css !!}
      </style>
  </head>
 
