@@ -43,13 +43,14 @@ class ResponseController extends Controller
           $questions[$q->id] = $q->label;
           $data[0][$q->id] = $q->label;
         }
+        $data[0]['date'] = 'Date';
         //echo('"' . implode('","', $questions) . '","Date"' . "\n");
         foreach($survey->responses as $r) {
           foreach($questions as $qid => $qlabel) {
             $data[$r->id][$qid] = @$r->answers()->where('question_id', $qid)->first()->value;
           }
           //echo('"' . implode('","', $data[$r->id]) . '","' . $r->updated_at . '"' . "\n");
-          // $data[$r->id]['date'] = $r->updated_at;
+          $data[$r->id]['date'] = $r->updated_at;
         }
         // die();
 
