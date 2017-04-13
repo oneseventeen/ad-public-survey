@@ -41,15 +41,25 @@ class ResponseController extends Controller
         $data = array();
         foreach($survey->questions as $q) {
           $questions[$q->id] = $q->label;
+          $data[0][$q->id] = $q->label;
         }
-        echo('"' . implode('","', $questions) . '","Date"' . "\n");
+        //echo('"' . implode('","', $questions) . '","Date"' . "\n");
         foreach($survey->responses as $r) {
           foreach($questions as $qid => $qlabel) {
             $data[$r->id][$qid] = @$r->answers()->where('question_id', $qid)->first()->value;
           }
-          echo('"' . implode('","', $data[$r->id]) . '","' . $r->updated_at . '"' . "\n");
+          //echo('"' . implode('","', $data[$r->id]) . '","' . $r->updated_at . '"' . "\n");
           // $data[$r->id]['date'] = $r->updated_at;
         }
-        die();
+        // die();
+
+        \Excel::create('Survey ' . $survey->id . ' Results', function($excel) use($data, $survey) {
+          $excel->setTitle('Survey ' . $survey->id . ' Results');
+          $excel->sheet('Results', function($sheet) use($data) {
+            $sheet->fromArray($data, null, 'A1', false, false);
+            $last_letter = chr(65+count($data[0]));
+            $sheet->getStyle('A1:' . $last_letter . '1')->getFont()->setBold(true);
+          });
+        })->download('xlsx');
     }
 }

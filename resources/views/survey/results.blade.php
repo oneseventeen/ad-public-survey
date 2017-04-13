@@ -10,7 +10,11 @@
           <h1 class='panel-title'>{{$survey->name}}</h1>
         </div>
         <div class='panel-body'>
-          <p><a class='btn btn-success' href="/survey/{{$survey->id}}">Take Survey</a> <a class='btn btn-primary' href="/response/export/{{$survey->id}}">Download Results (csv)</a> <a href='/list' class='btn'>Return to List</a></p>
+          <p><a class='btn btn-success' href="/survey/{{$survey->id}}">Take Survey</a>
+            @if($survey->questions()->count()>0)
+            <a class='btn btn-primary' href="/response/export/{{$survey->id}}">Download Results (xlsx)</a>
+            @endif
+            <a href='/list' class='btn'>Return to List</a></p>
           <table class="table table-striped">
             <thead>
               @foreach($questions as $q)
