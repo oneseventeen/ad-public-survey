@@ -152,4 +152,27 @@ class SurveyController extends Controller
           return redirect('thanks');
         }
     }
+
+    /**
+     * Show form to edit Survey
+     * @param  Survey $survey
+     * @return view
+     */
+    public function editSurveyForm(Survey $survey)
+    {
+      return view('survey.editsurvey', ['survey'=>$survey]);
+    }
+
+    public function editSurvey(Request $request, Survey $survey)
+    {
+      $this->validate($request, [
+        'name'  =>  'required|max:255'
+      ]);
+      $survey->name = $request->input('name');
+      $survey->description = $request->input('description');
+      $survey->css = strip_tags($request->input('css'));
+      $survey->return_url = $request->input('return_url');
+      $survey->save();
+      return redirect('list')->with('status',"Successfully edited Survey " . $survey->id);
+    }
 }
