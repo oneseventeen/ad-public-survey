@@ -19,6 +19,11 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    <style type='text/css'>
+      .row-processed {
+        font-style: italic;
+      }
+    </style>
 </head>
 <body>
     <div id="app">

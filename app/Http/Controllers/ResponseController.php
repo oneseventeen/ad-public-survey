@@ -63,4 +63,15 @@ class ResponseController extends Controller
           });
         })->download('xlsx');
     }
+
+    /**
+     * flag a response as processed
+     * @param  SurveyResponse $survey_response [description]
+     * @return [type]                          [description]
+     */
+    public function process(SurveyResponse $survey_response)
+    {
+      $survey_response->markAsProcessed();
+      return back()->with('success', ['marked response as processed']);
+    }
 }

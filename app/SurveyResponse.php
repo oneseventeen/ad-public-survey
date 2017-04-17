@@ -14,6 +14,14 @@ class SurveyResponse extends Model
   protected $fillable = ['survey_id', 'ip'];
 
   /**
+   * Casting column types
+   * @var array columns that need their types cast
+   */
+  protected $casts = [
+    'processed' => 'boolean'
+  ];
+
+  /**
    * Get the survey that owns the response
    */
   public function survey()
@@ -27,6 +35,13 @@ class SurveyResponse extends Model
   public function answers()
   {
     return $this->hasMany('App\Answer');
+  }
+
+  public function markAsProcessed()
+  {
+    $this->processed = 1;
+    return $this->save();
+
   }
 
 }
