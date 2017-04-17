@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
      <title>{{$survey->name}}</title>
-     <meta name="description" content="DESCRIPTION">
-    <link rel="stylesheet" href="PATH">
 
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
      <!--[if lt IE 9]>
@@ -37,8 +35,9 @@ var_dump(Session::getOldInput());
     </div>
   </div>
   <div class='container'>
-    <div class='col-md-6 col-md-offset-3'>
-
+    <div class='col-md-6 col-md-offset-3 survey-questions'>
+      <div class="panel panel-default">
+        <div class='panel-body'>
       @include('layouts.errors')
       <form role="form" method="POST" action="/survey/submit/{{$survey->id}}">
         <input type='hidden' name='survey_id' value="{{$survey->id}}" />
@@ -66,6 +65,8 @@ var_dump(Session::getOldInput());
             </button>
           </div>
       </form>
+    </div>
+    </div>
     </div>
   </div>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

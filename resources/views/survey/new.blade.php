@@ -46,6 +46,16 @@
                 </span>
               </div>
             </div>
+
+            <div class="form-group">
+              <label for="thank_you_message">Thank You Message</label>
+                <textarea class='form-control' name="thank_you_message"
+                  id="thank_you_message"
+                  placeholder="Your custom Thank You Message"
+                  rows='3'>{{ old('thank_you_message') }}</textarea>
+                <span id="helpBlock" class="help-block">Thank you message text to appear below the title 'Thank You'.  Newlines will be converted to paragraphs. No HTML.
+                </span>
+            </div>
 <!-- this is where the question form was -->
           <div class="form-group">
             <button type="submit" class="btn btn-primary">Submit and add questions</button> <a href='/list' class='btn'>Cancel</a>

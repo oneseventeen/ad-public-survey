@@ -42,3 +42,7 @@ Route::post('/addquestion/{survey}', 'SurveyController@addquestion');
 Route::get('/response/process/{survey_response}', 'ResponseController@process');
 Route::get('/response/export/{survey}', 'ResponseController@export')->middleware('auth');
 Route::get('/response/{survey}', 'ResponseController@show')->middleware('auth');
+
+Route::get('/thanks/{survey}', function(Survey $survey) {
+  return view('survey.thanks', ['survey'=>$survey]);
+});

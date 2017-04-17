@@ -31,6 +31,13 @@ class SurveyController extends Controller
           'name' => 'required|max:255'
       ]);
 
+      //ok, we're valid, now to save form data as a new survey:
+      $survey = Survey::create(
+        $request->only([
+          'name', 'description', 'return_url', 'css', 'thank_you_message'
+        ])
+      );
+      /*
       $survey = new Survey();
       $survey->name = $request->input('name');
       if($request->has('description')) {
@@ -42,7 +49,9 @@ class SurveyController extends Controller
       if($request->has('css')) {
         $survey->css = $request->input('css');
       }
+
       $survey->save();
+      */
       return redirect('/addquestion/' . $survey->id . '#new-question-form');
     }
 
@@ -91,23 +100,17 @@ class SurveyController extends Controller
       }
 
       $survey = \App\Survey::find($id);
-      $errorcount = 0;
       $answerArray = array();
       $validationArray = array();
 
       //loop through questions and check for answers
       foreach($survey->questions as $question) {
-        // if($question->required
-        //     && !$request->has('q-' . $question->id) ) {
-        //   $errorcount++;
-        // }
         if($question->required)
         {
           $validationArray['q-' . $question->id] =  'required';
           $messageArray['q-' . $question->id . '.required'] = $question->label . ' is required';
         }
         if($request->has('q-' . $question->id)) {
-          // echo("trying to add answer");
           if(is_array($request->input('q-' . $question->id)) && count($request->input('q-' . $question->id))) {
             $answerArray[$question->id] = array(
               'value' => implode('|', $request->input('q-' . $question->id)),
@@ -129,19 +132,14 @@ class SurveyController extends Controller
       $this->validate($request, $validationArray, $messageArray);
 
       //if no errors, submit form!
-      if($errorcount == 0 && count($answerArray) > 0) {
+      if(count($answerArray) > 0) {
         $sr = new \App\SurveyResponse(['survey_id'=>$id, 'ip'=>$_SERVER['REMOTE_ADDR']]);
         $sr->save();
         foreach($answerArray as $qid => $ans) {
           // print_r($ans);
           $sr->answers()->create($ans);
         }
-      } else {
-        // echo("boo " . $errorcount);
       }
-      // echo("<pre>\n");
-      // var_dump($request->all());
-      // die("</pre>\n");
 
 
         if($request->has('return_url')
@@ -149,7 +147,7 @@ class SurveyController extends Controller
            return redirect()->away($request->input('return_url'));
            //->header('Location', $request->input('return_url'));
         } else {
-          return redirect('thanks');
+          return redirect('thanks/' . $survey->id);
         }
     }
 
@@ -168,10 +166,12 @@ class SurveyController extends Controller
       $this->validate($request, [
         'name'  =>  'required|max:255'
       ]);
+
       $survey->name = $request->input('name');
       $survey->description = $request->input('description');
       $survey->css = strip_tags($request->input('css'));
       $survey->return_url = $request->input('return_url');
+      $survey->thank_you_message = $request->input('thank_you_message');
       $survey->save();
       return redirect('list')->with('status',"Successfully edited Survey " . $survey->id);
     }
