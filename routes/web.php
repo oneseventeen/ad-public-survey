@@ -32,6 +32,11 @@ Route::get('/new', function() {
 Route::post('/survey/create', 'SurveyController@create')->middleware('auth');
 Route::get('/survey/edit/{survey}', 'SurveyController@editSurveyForm')->middleware('auth');
 Route::post('/survey/edit/{survey}', 'SurveyController@editSurvey')->middleware('auth');
+
+Route::get('/survey/code/{survey}', function(Survey $survey) {
+  return view('survey.form-html', ['survey'=>$survey]);
+})->middleware('auth');
+
 Route::get('/survey/{id}', 'SurveyController@show');
 Route::post('/survey/submit/{id}', 'SurveyController@submit');
 Route::get('/addquestion/{survey}', function(Survey $survey) {

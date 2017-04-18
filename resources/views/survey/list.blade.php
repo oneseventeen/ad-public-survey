@@ -14,6 +14,7 @@
               <tr>
                 <th>Take Survey</th>
                 <th>View Responses</th>
+                <th>HTML</th>
                 <th>Add Questions</th>
                 <th>Edit Survey</th>
               </tr>
@@ -23,6 +24,7 @@
                 <tr>
                   <td><a href='/survey/{{$s->id}}'>{{$s->name}}</a></td>
                   <td><a href='/response/{{$s->id}}'>{{$s->responses()->count()}} responses</a></td>
+                  <td><a href='/survey/code/{{$s->id}}'>View Code</a></td>
                   <td><a href='/addquestion/{{$s->id}}'>Add Question</a></td>
                   <td><a href='/survey/edit/{{$s->id}}'>Edit Survey</a></td>
                 </tr>
