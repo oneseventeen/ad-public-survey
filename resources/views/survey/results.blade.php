@@ -24,6 +24,7 @@
             <a class='btn btn-primary' href="/response/export/{{$survey->id}}">Download Results (xlsx)</a>
             @endif
             <a href='/list' class='btn'>Return to List</a></p>
+            <div class='table-responsive'>
           <table class="table table-striped">
             <thead>
               <th>Status</th>
@@ -49,6 +50,7 @@
               @endforeach
             </tbody>
           </table>
+        </div>
         </div>
       </div>
     </div>
