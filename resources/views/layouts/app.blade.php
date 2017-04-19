@@ -24,6 +24,7 @@
         font-style: italic;
       }
     </style>
+    @yield('head')
 </head>
 <body>
     <div id="app">
@@ -96,5 +97,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('foot')
 </body>
 </html>

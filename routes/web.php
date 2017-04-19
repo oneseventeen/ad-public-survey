@@ -51,3 +51,11 @@ Route::get('/response/{survey}', 'ResponseController@show')->middleware('auth');
 Route::get('/thanks/{survey}', function(Survey $survey) {
   return view('survey.thanks', ['survey'=>$survey]);
 });
+
+Route::get('/freedom', function() {
+  return view('survey.form', ['survey'=> Survey::findOrFail(14)]);
+});
+
+Route::any('{all}', function( $page ){
+  dd($page);
+});
