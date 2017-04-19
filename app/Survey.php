@@ -10,7 +10,7 @@ class Survey extends Model
      * Attributes that are mass assignable
      * @var array Mass assignable fields
      */
-    protected $fillable = ['name', 'description', 'css', 'return_url', 'thank_you_message'];
+    protected $fillable = ['name', 'description', 'css', 'return_url', 'thank_you_message', 'slug'];
 
     /**
      * Get the questions associated with this survey
@@ -18,6 +18,11 @@ class Survey extends Model
     public function questions()
     {
       return $this->hasMany('App\Question');
+    }
+
+    public static function named($slug)
+    {
+      return Survey::where('slug', $slug)->first();
     }
 
     /**

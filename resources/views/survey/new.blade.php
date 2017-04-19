@@ -56,6 +56,16 @@
                 <span id="helpBlock" class="help-block">Thank you message text to appear below the title 'Thank You'.  Newlines will be converted to paragraphs. No HTML.
                 </span>
             </div>
+
+
+            <div class="form-group">
+              <label for="slug">Slug</label>
+              <div class="field-block">
+                  <input type="text" class="form-control" name="slug" id="slug">
+                <span id="helpBlock" class="help-block">Slug for the survey, basically a short name without spaces so you can make nice looking URLs, like {{Config::get('app.url')}}/{slug} instead of {{Config::get('app.url')}}/survey/{number}
+                </span>
+              </div>
+            </div>
 <!-- this is where the question form was -->
           <div class="form-group">
             <button type="submit" class="btn btn-primary">Submit and add questions</button> <a href='/list' class='btn'>Cancel</a>

@@ -31,11 +31,17 @@ class SurveyController extends Controller
           'name' => 'required|max:255'
       ]);
 
+      $survey_details = $request->only([
+        'name', 'description', 'return_url', 'css', 'thank_you_message', 'slug'
+      ]);
+
+      if(isset($survey_details['slug'])) {
+        $survey_details['slug'] = str_replace(' ','_', $survey_details['slug']);
+      }
+
       //ok, we're valid, now to save form data as a new survey:
       $survey = Survey::create(
-        $request->only([
-          'name', 'description', 'return_url', 'css', 'thank_you_message'
-        ])
+        $survey_details
       );
       /*
       $survey = new Survey();
@@ -172,6 +178,7 @@ class SurveyController extends Controller
       $survey->css = strip_tags($request->input('css'));
       $survey->return_url = $request->input('return_url');
       $survey->thank_you_message = $request->input('thank_you_message');
+      $survey->slug = str_replace(' ', '_', $request->input('slug'));
       $survey->save();
       return redirect('list')->with('status',"Successfully edited Survey " . $survey->id);
     }
