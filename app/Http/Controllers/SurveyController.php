@@ -107,6 +107,7 @@ class SurveyController extends Controller
       $survey = \App\Survey::find($id);
       $answerArray = array();
       $validationArray = array();
+      $messageArray = array();
 
       //loop through questions and check for answers
       foreach($survey->questions as $question) {
@@ -147,10 +148,9 @@ class SurveyController extends Controller
       }
 
 
-        if($request->has('return_url')
-            && strlen($request->input('return_url'))>5) {
-           return redirect()->away($request->input('return_url'));
-           //->header('Location', $request->input('return_url'));
+        if($survey->return_url
+            && strlen($survey->return_url)>5) {
+           return redirect()->away($survey->return_url);
         } else {
           return redirect('thanks/' . $survey->id);
         }
