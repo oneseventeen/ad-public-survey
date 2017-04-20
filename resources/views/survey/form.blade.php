@@ -47,11 +47,6 @@ var_dump(Session::getOldInput());
           @foreach($survey->questions as $q)
 
           <div class='form-group{{ $errors->has('q-' . $q->id) ? ' has-error' : '' }}'>
-            <label for="q[{{$q->id}}]" class="control-label">{{$q->label}}
-              @if($q->required)
-              <span class='text-danger'>* Required</span>
-              @endif
-            </label>
               @include('survey.field.' . $q->question_type)
 
               @if(strlen($q->description)>2)

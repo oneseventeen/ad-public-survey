@@ -69,18 +69,17 @@ class SurveyController extends Controller
      */
     public function addquestion(Request $request, Survey $survey)
     {
-      $validation_array = array('label'=>'required|max:255');
-      if($request->has('type') && $request->input('type') == 'select') {
-        $validation_array['options'] = 'required';
-      }
-      $this->validate($request, $validation_array);
+      $this->validate($request, [
+          'label'=>'required|max:255',
+          'options'=>'required_if:type,select,checkbox-list,section'
+        ]);
       $data = array();
       $data['label'] = $request->input('label');
       $data['question_type'] = $request->input('type');
       if($request->has('options')) {
         $data['options'] = $request->input('options');
       }
-      if($request->has('required')) {
+      if($request->has('required') && $request->input('type') != 'section') {
         $data['required'] = '1';
       }
       // return($data);
