@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1a0b4701e7834fc356acd17ef847eee",
+    "content-hash": "91d86a0ba8117ac2db6d2164ca8d6a5a",
     "packages": [
         {
             "name": "adldap2/adldap2",
@@ -646,6 +646,121 @@
             "time": "2017-03-29T16:04:15+00:00"
         },
         {
+            "name": "erusev/parsedown-extra",
+            "version": "0.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown-extra.git",
+                "reference": "0db5cce7354e4b76f155d092ab5eb3981c21258c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown-extra/zipball/0db5cce7354e4b76f155d092ab5eb3981c21258c",
+                "reference": "0db5cce7354e4b76f155d092ab5eb3981c21258c",
+                "shasum": ""
+            },
+            "require": {
+                "erusev/parsedown": "~1.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ParsedownExtra": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "An extension of Parsedown that adds support for Markdown Extra.",
+            "homepage": "https://github.com/erusev/parsedown-extra",
+            "keywords": [
+                "markdown",
+                "markdown extra",
+                "parsedown",
+                "parser"
+            ],
+            "time": "2015-11-01T10:19:22+00:00"
+        },
+        {
+            "name": "haleks/writedown",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/haleks/writedown.git",
+                "reference": "807b2958997966acebcbbbead596262207a75f02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/haleks/writedown/zipball/807b2958997966acebcbbbead596262207a75f02",
+                "reference": "807b2958997966acebcbbbead596262207a75f02",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.4.*",
+                "illuminate/support": "5.4.*",
+                "illuminate/view": "5.4.*",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "erusev/parsedown": "~1.6",
+                "erusev/parsedown-extra": "~0.7",
+                "league/commonmark": "~0.15",
+                "michelf/php-markdown": "~1.6",
+                "mockery/mockery": "~0.9",
+                "orchestra/testbench": "3.4.*",
+                "phpunit/phpunit": "~5.4"
+            },
+            "suggest": {
+                "erusev/parsedown": "Required to use the parsedown driver (~1.6).",
+                "erusev/parsedown-extra": "Required to use the parsedownextra driver (~0.7).",
+                "league/commonmark": "Required to use the commonmark driver (~0.15)",
+                "michelf/php-markdown": "Required to use the markdown driver (~1.6)"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Haleks\\Writedown\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexandre Villeneuve",
+                    "email": "haleksviller@gmail.com"
+                }
+            ],
+            "description": "Writedown integrate markdown \"curly\" braces inside the blade template engine, adding view extension and also giving the possibility of extending CommonMark.",
+            "keywords": [
+                "Parsedown Extra",
+                "blade",
+                "commonmark",
+                "laravel",
+                "markdown",
+                "parsedown",
+                "writedown"
+            ],
+            "time": "2017-03-08T22:33:23+00:00"
+        },
+        {
             "name": "jakub-onderka/php-console-color",
             "version": "0.1",
             "source": {
@@ -792,16 +907,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.4.18",
+            "version": "v5.4.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d15ded55b5e690199393ea93a57edcbae20d1ffc"
+                "reference": "02444b7450350db17a7607c8a52f7268ebdb0dad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/d15ded55b5e690199393ea93a57edcbae20d1ffc",
-                "reference": "d15ded55b5e690199393ea93a57edcbae20d1ffc",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/02444b7450350db17a7607c8a52f7268ebdb0dad",
+                "reference": "02444b7450350db17a7607c8a52f7268ebdb0dad",
                 "shasum": ""
             },
             "require": {
@@ -917,7 +1032,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-04-10T19:27:41+00:00"
+            "time": "2017-04-16T13:33:34+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1663,16 +1778,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.6",
+            "version": "v5.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e"
+                "reference": "56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e",
-                "reference": "81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4",
+                "reference": "56db4ed32a6d5c9824c3ecc1d2e538f663f47eb4",
                 "shasum": ""
             },
             "require": {
@@ -1713,7 +1828,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2017-02-13T07:52:53+00:00"
+            "time": "2017-04-20T17:32:18+00:00"
         },
         {
             "name": "symfony/console",

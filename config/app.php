@@ -175,6 +175,11 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
+         * Markdown/Writedown Service provider
+         */
+        Haleks\Writedown\WritedownServiceProvider::class,
+
+        /*
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
@@ -220,6 +225,7 @@ return [
          * For Excel export:
          */
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
         'File' => Illuminate\Support\Facades\File::class,
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
@@ -240,6 +246,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        // for Writedown:
+        'Writedown' => Haleks\Writedown\Facades\Writedown::class,
         'Adldap' => Adldap\Laravel\Facades\Adldap::class,
 
     ],

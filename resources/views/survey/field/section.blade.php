@@ -3,6 +3,6 @@
     <h2 class='panel-title'>{{$q->label}}</h2>
   </div>
   <div class='panel-body'>
-    {{$q->options}}
+    {% $q->options %}
   </div>
 </div>
