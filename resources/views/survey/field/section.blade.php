@@ -1,8 +1,5 @@
-<div class='panel panel-info'>
-  <div class='panel-heading'>
-    <h2 class='panel-title'>{{$q->label}}</h2>
-  </div>
-  <div class='panel-body'>
+
+  <div class='form-section'>
+    <h3>{{$q->label}}</h3>
     {% $q->options %}
   </div>
-</div>
