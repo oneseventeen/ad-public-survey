@@ -43,21 +43,6 @@ class SurveyController extends Controller
       $survey = Survey::create(
         $survey_details
       );
-      /*
-      $survey = new Survey();
-      $survey->name = $request->input('name');
-      if($request->has('description')) {
-        $survey->description = $request->input('description');
-      }
-      if($request->has('return_url')) {
-        $survey->return_url = $request->input('return_url');
-      }
-      if($request->has('css')) {
-        $survey->css = $request->input('css');
-      }
-
-      $survey->save();
-      */
       return redirect('/addquestion/' . $survey->id . '#new-question-form');
     }
 
@@ -71,9 +56,14 @@ class SurveyController extends Controller
     {
       $this->validate($request, [
           'label'=>'required|max:255',
-          'options'=>'required_if:type,select,checkbox-list,section'
+          'options'=>'required_if:type,select,checkbox-list,section',
+          'required'=>'boolean'
         ]);
       $data = array();
+      $data = $request->intersect([
+        'label', 'question_type', 'options', 'required', 'css_class'
+      ]);
+      /*
       $data['label'] = $request->input('label');
       $data['question_type'] = $request->input('type');
       if($request->has('options')) {
@@ -82,6 +72,7 @@ class SurveyController extends Controller
       if($request->has('required') && $request->input('type') != 'section') {
         $data['required'] = '1';
       }
+      */
       // return($data);
       $survey->questions()->create($data);
       return redirect('/addquestion/' . $survey->id . '#new-question-form');

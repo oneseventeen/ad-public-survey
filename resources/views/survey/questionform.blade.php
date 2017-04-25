@@ -9,8 +9,8 @@
                     id="label" value="{{old('label')}}">
                 </div>
                 <div class='form-group'>
-                  <label for="type">Type</label>
-                  <select name="type" class='form-control' id="type">
+                  <label for="question_type">Type</label>
+                  <select name="question_type" class='form-control' id="question_type">
                     <option {{ (old("type") == "text" ? "selected":"") }}>text</option>
                     <option {{ (old("type") == "textarea" ? "selected":"") }}>textarea</option>
                     <option {{ (old("type") == "select" ? "selected":"") }}>select</option>
@@ -25,10 +25,15 @@
                       many options as you'd like if you are making a select type
                       or checkbox-list type question.  Separate options with a pipe: | (otherwise, leave blank or for section type include section text)</span>
                 </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" value='1' name="required"> Required?
-                  </label>
+                <div class="col-md-6">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" value='1' name="required"> Required?
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="css_class">CSS Class </label><input class='form-control' id='css_class' type='text' name='css_class' placeholder="col-md-6" value="{{old('css_class')}}">
                 </div>
               </div>
             </div>
@@ -37,15 +42,15 @@
               window.onload =function() {
                 var optionfields = ["select", "checkbox-list", "section"];
 
-                if(optionfields.includes($('#type option:selected').text())) {
+                if(optionfields.includes($('#question_type option:selected').text())) {
                   $('#option-area').show();
                 } else {
                   $('#option-area').hide();
                   $('#options').val("");
                 }
 
-               $('#type').change(function() {
-                 if(optionfields.includes($('#type option:selected').text())) {
+               $('#question_type').change(function() {
+                 if(optionfields.includes($('#question_type option:selected').text())) {
                    $('#option-area').show();
                  } else {
                    $('#option-area').hide();

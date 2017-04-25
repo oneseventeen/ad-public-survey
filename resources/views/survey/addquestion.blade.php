@@ -17,7 +17,7 @@
 
             <div class="form-group">
               <button type="submit" class="btn btn-primary">Submit and add another question</button>
-              <a href='/list'>Done Adding Questions</a>
+              <a href='/list'>Cancel</a>
             </div>
             @include('layouts.errors')
           </form>

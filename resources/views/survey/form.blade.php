@@ -35,7 +35,7 @@ var_dump(Session::getOldInput());
     </div>
   </div>
   <div class='container'>
-    <div class='col-md-6 col-md-offset-3 survey-questions'>
+    <div class='col-md-12 survey-questions'>
       <div class="panel panel-default">
         <div class='panel-body'>
       @include('layouts.errors')
@@ -46,7 +46,7 @@ var_dump(Session::getOldInput());
         @endif
           @foreach($survey->questions as $q)
 
-          <div class='form-group{{ $errors->has('q-' . $q->id) ? ' has-error' : '' }}'>
+          <div class='form-group{{ $errors->has('q-' . $q->id) ? ' has-error' : '' }} {{ $q->css_class or 'col-md-12'}}'>
               @include('survey.field.' . $q->question_type)
 
               @if(strlen($q->description)>2)
