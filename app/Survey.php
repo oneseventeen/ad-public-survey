@@ -17,7 +17,7 @@ class Survey extends Model
      */
     public function questions()
     {
-      return $this->hasMany('App\Question');
+      return $this->hasMany('App\Question')->orderBy('order');
     }
 
     public static function named($slug)
@@ -31,5 +31,32 @@ class Survey extends Model
     public function responses()
     {
       return $this->hasMany('App\SurveyResponse');
+    }
+
+
+    /**
+     * Number all questions in a survey
+     */
+    public function number_questions()
+    {
+      //First check to see if there are even any questions:
+      if($this->questions()->count() < 1) {
+        return true;
+      }
+
+      //Now, check to see if the questions are already numbered:
+      if($this->questions()->first()->order !== null) {
+        return true;
+      }
+
+      //Now, loop through and order the questions based on default ordering:
+      $current_number = 0;
+      foreach($this->questions as $question) {
+        $current_number++;
+        $question->order = $current_number;
+        $question->save();
+      }
+
+      return true;
     }
 }
