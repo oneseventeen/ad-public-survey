@@ -30,7 +30,7 @@ class Survey extends Model
      */
     public function responses()
     {
-      return $this->hasMany('App\SurveyResponse');
+      return $this->hasMany('App\SurveyResponse')->orderBy('processed');
     }
 
 
