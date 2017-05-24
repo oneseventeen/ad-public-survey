@@ -2,9 +2,11 @@
 
 @section('content')
 
+<!--
 <div class='container'>
   <div class='row'>
-    <div class='col-mid-8 col-offset-2'>
+  -->
+    <div class='col-mid-12 '>
       <div class='panel panel-default'>
         <div class='panel-heading'>
           <h1 class='panel-title'>{{$survey->name}}</h1>
@@ -22,6 +24,7 @@
           <p><a class='btn btn-success' href="/survey/{{$survey->id}}">Take Survey</a>
             @if($survey->responses()->count()>0)
             <a class='btn btn-primary' href="/response/export/{{$survey->id}}">Download Results (xlsx)</a>
+            <a class='btn btn-primary' href="/response/csv/{{$survey->id}}">Download Results (csv)</a>
             @endif
             <a href='/list' class='btn'>Return to List</a></p>
             <div class='table-responsive'>
@@ -54,7 +57,8 @@
         </div>
       </div>
     </div>
+<!--
   </div>
 </div>
-
+-->
 @endsection

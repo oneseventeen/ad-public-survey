@@ -31,9 +31,50 @@ class ResponseController extends Controller
     }
 
     /**
-     * Export responses to a survey by populating an array and showing CSV
+     * Export responses to a survey as raw CSV
      * @param  Survey $survey Survey object
      * @return CSV
+     */
+    public function exportCsv(Survey $survey)
+    {
+      $questions = array();
+      $data = array();
+
+      //establish the first row:
+      $data[1]['Status'] = 'Status';
+      foreach($survey->questions as $q) {
+        $questions[$q->id] = $q->label;
+        $data[1][$q->id] = $q->label;
+      }
+      $data[1]['Date'] = 'Date';
+
+      //loop through the rest!
+      foreach($survey->responses as $r) {
+        $data[$r->id]['Status'] = ($r->processed == 1) ? 'Processed' : 'Not Processed';
+        foreach($questions as $qid => $qlabel) {
+          $data[$r->id][$qid] = @$r->answers()->where('question_id', $qid)->first()->value;
+        }
+        $data[$r->id]['Date'] = $r->updated_at;
+      }
+
+      // output headers so that the file is downloaded rather than displayed
+      header('Content-Type: text/csv; charset=utf-8');
+      header('Content-Disposition: attachment; filename=survey ' . $survey->id . '-' . date('Y-m-d') . '.csv');
+
+      // create a file pointer connected to the output stream
+      $output = fopen('php://output', 'w');
+
+      foreach($data as $row) {
+        fputcsv($output, $row);
+      }
+      die();
+
+    }
+
+    /**
+     * Export responses to a survey as an Excel file
+     * @param  Survey $survey Survey object
+     * @return Excel
      */
     public function export(Survey $survey)
     {
