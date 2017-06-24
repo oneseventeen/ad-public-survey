@@ -37,6 +37,18 @@
             @else
               Thank you for your submission!
             @endif
+
+            @if ($survey->kiosk_mode)
+              <p>This page will be redirected in 5 seconds.</p>
+              <script>
+              window.setTimeout(function(){
+
+                  // Move to a new location or you can do something else
+                  window.location.href = "{{$survey->return_url}}";
+
+              }, 5000);
+              </script>
+            @endif
           </div>
         </div>
       </div>

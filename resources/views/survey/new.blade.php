@@ -66,6 +66,13 @@
                 </span>
               </div>
             </div>
+
+            <div class="form-group checkbox">
+              <label for="kiosk_mode">
+                <input type="checkbox" name="kiosk_mode" id="kiosk_mode" value='1'> Kiosk Mode
+              </label>
+            <span id="helpBlock" class="help-block">Kiosk mode surveys redirect back to the survey after 5 seconds</span>
+            </div>
 <!-- this is where the question form was -->
           <div class="form-group">
             <button type="submit" class="btn btn-primary">Submit and add questions</button> <a href='/list' class='btn'>Cancel</a>

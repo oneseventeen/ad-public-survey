@@ -10,7 +10,7 @@ class Survey extends Model
      * Attributes that are mass assignable
      * @var array Mass assignable fields
      */
-    protected $fillable = ['name', 'description', 'css', 'return_url', 'thank_you_message', 'slug'];
+    protected $fillable = ['name', 'description', 'css', 'return_url', 'thank_you_message', 'slug', 'kiosk_mode'];
 
     /**
      * Get the questions associated with this survey

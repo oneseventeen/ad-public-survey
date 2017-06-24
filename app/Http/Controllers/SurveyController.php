@@ -28,11 +28,12 @@ class SurveyController extends Controller
     {
 
       $this->validate($request, [
-          'name' => 'required|max:255'
+          'name' => 'required|max:255',
+          'kiosk_mode' => 'boolean'
       ]);
 
       $survey_details = $request->only([
-        'name', 'description', 'return_url', 'css', 'thank_you_message', 'slug'
+        'name', 'description', 'return_url', 'css', 'thank_you_message', 'slug', 'kiosk_mode'
       ]);
 
       if(isset($survey_details['slug'])) {
@@ -140,7 +141,8 @@ class SurveyController extends Controller
 
 
         if($survey->return_url
-            && strlen($survey->return_url)>5) {
+            && strlen($survey->return_url)>5
+            && !$survey->kiosk_mode ) {
            return redirect()->away($survey->return_url);
         } else {
           return redirect('thanks/' . $survey->id);
