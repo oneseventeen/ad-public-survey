@@ -47,6 +47,8 @@ Route::post('/addquestion/{survey}', 'SurveyController@addquestion');
 Route::get('/response/process/{survey_response}', 'ResponseController@process');
 Route::get('/response/export/{survey}', 'ResponseController@export')->middleware('auth');
 Route::get('/response/csv/{survey}', 'ResponseController@exportCsv')->middleware('auth');
+Route::get('/response/single/{survey_response}', 'ResponseController@single')->middleware('auth');
+Route::get('/response/next/{survey_response}', 'ResponseController@next')->middleware('auth');
 Route::get('/response/{survey}', 'ResponseController@show')->middleware('auth');
 
 Route::get('/thanks/{survey}', function(Survey $survey) {

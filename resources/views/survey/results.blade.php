@@ -31,6 +31,7 @@
           <table class="table table-striped">
             <thead>
               <th>Status</th>
+              <th>Details</th>
               @foreach($questions as $q)
               <th title="{{$q}}">{{str_limit($q, 15)}}</th>
               @endforeach
@@ -44,6 +45,9 @@
                   @else
                     <a href='/response/process/{{$response->id}}' class='btn btn-primary'>Mark Complete</a>
                   @endif
+                </td>
+                <td>
+                  <a href='/response/single/{{$response->id}}'>View</a>
                 </td>
                 @foreach($questions as $qid=>$q)
                 <td>{{ $data[$response->id][$qid] or "-" }}</td>

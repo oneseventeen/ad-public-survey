@@ -31,6 +31,48 @@ class ResponseController extends Controller
     }
 
     /**
+     * Show a single response
+     * @param Response
+     * @return view
+     */
+    public function single(SurveyResponse $survey_response)
+    {
+      return view('survey.response', ['response'=>$survey_response]);
+    }
+
+    /**
+     * Show a single response
+     * @param Response
+     * @return view
+     */
+    public function next(SurveyResponse $survey_response)
+    {
+      //first we need to find all the responses:
+      $survey = $survey_response->survey;
+      $res = $survey->responses()->where('processed', 0)->get();
+      $nextone = false;
+      $foundit = false;
+      foreach($res as $response) {
+        if($nextone == true) {
+          $foundit = true;
+          $nextone = false;
+          $next_response = $response;
+        }
+        if($response->id == $survey_response->id) {
+          //grab the next one!
+          $nextone = true;
+          //mark this one as complete
+          $survey_response->markAsProcessed();
+        }
+      }
+      if($foundit) {
+        return view('survey.response', ['response'=>$next_response]);
+      } else {
+        return view('survey.lastresponse', ['survey'=>$survey]);
+      }
+    }
+
+    /**
      * Export responses to a survey as raw CSV
      * @param  Survey $survey Survey object
      * @return CSV
