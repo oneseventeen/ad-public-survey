@@ -13,8 +13,9 @@ class ResponseController extends Controller
      * @param  Survey $survey Survey object
      * @return view
      */
-    public function show(Survey $survey)
+    public function show(int $survey_id)
     {
+      $survey = Survey::with(['questions', 'responses.answers'])->find($survey_id);
       $questions = array();
       $data = array();
       foreach($survey->questions as $q) {
@@ -22,7 +23,7 @@ class ResponseController extends Controller
       }
       foreach($survey->responses as $r) {
         foreach($questions as $qid => $qlabel) {
-          $data[$r->id][$qid] = @$r->answers()->where('question_id', $qid)->first()->value;
+          $data[$r->id][$qid] = @$r->answers->where('question_id', $qid)->first()->value;
         }
         $data[$r->id]['date'] = $r->updated_at;
       }
@@ -35,9 +36,19 @@ class ResponseController extends Controller
      * @param Response
      * @return view
      */
-    public function single(SurveyResponse $survey_response)
+    public function single(int $survey_response_id)
     {
-      return view('survey.response', ['response'=>$survey_response]);
+      $survey_response = SurveyResponse::with(['survey.questions', 'answers'])->find($survey_response_id);
+      $data = array();
+      foreach($survey_response->survey->questions as $q) {
+        if($q->question_type != 'section') {
+          $data[$q->label] = @$survey_response->answers->where('question_id', $q->id)->first()->value;
+          // if($survey_response->answers->contains('question_id', $q->id)) {
+          //   dd($survey_response->answers->where('question_id', $q->id)->first()->value);
+          // }
+        }
+      }
+      return view('survey.response', ['response'=>$survey_response, 'data'=>$data]);
     }
 
     /**

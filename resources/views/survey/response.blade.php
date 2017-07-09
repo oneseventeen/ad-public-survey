@@ -21,13 +21,11 @@
           </tr>
         </thead>
         <tbody>
-          @foreach($response->survey->questions as $question)
-            @if($question->question_type != 'section')
+          @foreach($data as $label => $answer)
             <tr>
-              <th scope='row'>{{$question->label}}</th>
-              <td>{{$response->answers()->where('question_id', $question->id)->value('value')}}</td>
+              <th scope='row'>{{$label}}</th>
+              <td>{{$answer}}</td>
             </tr>
-            @endif
           @endforeach
         </tbody>
       </table>
