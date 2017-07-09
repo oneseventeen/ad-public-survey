@@ -193,6 +193,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Debug Bar
+         */
+        Barryvdh\Debugbar\ServiceProvider::class,
+
     ],
 
     /*
@@ -249,6 +254,8 @@ return [
         // for Writedown:
         'Writedown' => Haleks\Writedown\Facades\Writedown::class,
         'Adldap' => Adldap\Laravel\Facades\Adldap::class,
+        // for debugbar:
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 
