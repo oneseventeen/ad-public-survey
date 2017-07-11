@@ -32,10 +32,18 @@
             <h1 class='panel-title thank-you-title'>Thank You!</h1>
           </div>
           <div class='panel-body thank-you-panel'>
-            @if ($survey->thank_you_message)
-              {!! nl2br(e($survey->thank_you_message)) !!}
+            @if ( !$survey->active )
+              @if ($survey->thank_you_message)
+                {!! nl2br(e($survey->thank_you_message)) !!}
+              @else
+                This form is not currently active
+              @endif
             @else
-              Thank you for your submission!
+              @if ($survey->thank_you_message)
+                {!! nl2br(e($survey->thank_you_message)) !!}
+              @else
+                Thank you for your submission!
+              @endif
             @endif
 
             @if ($survey->kiosk_mode)

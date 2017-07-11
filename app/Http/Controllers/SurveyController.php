@@ -16,7 +16,12 @@ class SurveyController extends Controller
 
     public function show($id)
     {
-      return view('survey.form', ['survey'=> Survey::findOrFail($id)]);
+      $survey = Survey::with('questions')->findOrFail($id);
+      if( $survey->active ) {
+        return view('survey.form', ['survey'=> $survey]);
+      } else {
+        return view('survey.thanks', ['survey'=> $survey]);
+      }
     }
 
     /**
@@ -29,15 +34,26 @@ class SurveyController extends Controller
 
       $this->validate($request, [
           'name' => 'required|max:255',
-          'kiosk_mode' => 'boolean'
+          'kiosk_mode' => 'boolean',
+          'begin_at' => 'nullable|date',
+          'end_at' => 'nullable|date'
       ]);
 
-      $survey_details = $request->only([
-        'name', 'description', 'return_url', 'css', 'thank_you_message', 'slug', 'kiosk_mode'
+      $survey_details = $request->intersect([
+        'name', 'description', 'return_url', 'css', 'thank_you_message',
+        'slug', 'kiosk_mode', 'begin_at', 'end_at'
       ]);
 
       if(isset($survey_details['slug'])) {
         $survey_details['slug'] = str_replace(' ','_', $survey_details['slug']);
+      }
+
+      if(isset($survey_details['begin_at'])) {
+        $survey_details['begin_at'] = date('Y-m-d H:i:s', strtotime($survey_details['begin_at']));
+      }
+
+      if(isset($survey_details['end_at'])) {
+        $survey_details['end_at'] = date('Y-m-d H:i:s', strtotime($survey_details['end_at']));
       }
 
       //ok, we're valid, now to save form data as a new survey:
@@ -162,7 +178,9 @@ class SurveyController extends Controller
     public function editSurvey(Request $request, Survey $survey)
     {
       $this->validate($request, [
-        'name'  =>  'required|max:255'
+        'name'  =>  'required|max:255',
+        'begin_at' => 'nullable|date',
+        'end_at' => 'nullable|date'
       ]);
 
       $survey->name = $request->input('name');
@@ -171,6 +189,12 @@ class SurveyController extends Controller
       $survey->return_url = $request->input('return_url');
       $survey->thank_you_message = $request->input('thank_you_message');
       $survey->slug = str_replace(' ', '_', $request->input('slug'));
+      if($request->input('begin_at') !== null ) {
+        $survey->begin_at = date('Y-m-d H:i:s', strtotime($request->input('begin_at')));
+      }
+      if($request->input('end_at') !== null ) {
+        $survey->end_at = date('Y-m-d H:i:s', strtotime($request->input('end_at')));
+      }
       $survey->save();
       return redirect('list')->with('status',"Successfully edited Survey " . $survey->id);
     }

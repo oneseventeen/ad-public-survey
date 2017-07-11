@@ -25,6 +25,22 @@
                 <textarea class='form-control' name="description" id="description"  placeholder="Description of Survey" rows='3'>{{ old('description') }}</textarea>
             </div>
 
+            <div class="form-group col-md-6">
+              <label for="name">Start Date and Time
+              </label>
+              <div class="field-block">
+                  <input type="text" class="form-control" name="begin_at" id="begin_at"
+                  value="" placeholder="YYYY-MM-DD HH:MM:SS">
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="name">End Date and Time
+              </label>
+              <div class="field-block">
+                  <input type="text" class="form-control" name="end_at" id="end_at"
+                  value="" placeholder="YYYY-MM-DD HH:MM:SS">
+              </div>
+            </div>
 
             <div class="form-group">
               <label for="css">CSS</label>

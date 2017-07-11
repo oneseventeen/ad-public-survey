@@ -26,6 +26,22 @@
                   rows='3'>{{ $survey->description }}</textarea>
             </div>
 
+            <div class="form-group col-md-6">
+              <label for="name">Start Date and Time
+              </label>
+              <div class="field-block">
+                  <input type="text" class="form-control" name="begin_at" id="begin_at"
+                  value="{{ $survey->begin_at != null ? date('Y-m-d H:i:s', strtotime($survey->begin_at)) : '' }}" placeholder="YYYY-MM-DD HH:MM:SS">
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="name">End Date and Time
+              </label>
+              <div class="field-block">
+                  <input type="text" class="form-control" name="end_at" id="end_at"
+                  value="{{ $survey->end_at != null ? date('Y-m-d H:i:s', strtotime($survey->end_at)) : '' }}" placeholder="YYYY-MM-DD HH:MM:SS">
+              </div>
+            </div>
 
             <div class="form-group">
               <label for="css">CSS</label>

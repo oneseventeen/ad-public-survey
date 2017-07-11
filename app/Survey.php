@@ -10,7 +10,21 @@ class Survey extends Model
      * Attributes that are mass assignable
      * @var array Mass assignable fields
      */
-    protected $fillable = ['name', 'description', 'css', 'return_url', 'thank_you_message', 'slug', 'kiosk_mode'];
+    protected $fillable = ['name', 'description', 'css', 'return_url',
+      'thank_you_message', 'slug', 'kiosk_mode', 'begin_at', 'end_at'];
+
+    protected $date = ['begin_at', 'end_at', 'created_at', 'updated_at'];
+
+    protected $appends = ['active'];
+
+    public function getActiveAttribute() {
+      if( ( $this->begin_at == null || strtotime($this->begin_at) < time() )
+      && $this->end_at == null || strtotime($this->end_at) > time() ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
 
     /**
      * Get the questions associated with this survey
